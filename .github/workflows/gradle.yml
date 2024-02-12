@@ -50,7 +50,7 @@ jobs:
     - uses: mr-smithers-excellent/docker-build-push@v6
       name: Build & push Docker image
       with:
-        image: skipatroltest1/swapy
+        image: skipatroltest1/swapy/swapy_app
         tags: v1, latest
         registry: us-central1-docker.pkg.dev
         dockerfile: Dockerfile
