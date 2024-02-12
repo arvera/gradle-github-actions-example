@@ -65,8 +65,9 @@ jobs:
           username: ${{ secrets.TARGET_USERNAME }}
           key: ${{ secrets.TARGET_KEY }}
           port: ${{ secrets.PORT }}
-          script: whoami
-
+          script: |
+            sudo su - 
+            /root/refresh_swapy_latest.sh;
       
   dependency-submission:
 
