@@ -65,8 +65,9 @@ jobs:
           key: ${{ secrets.TARGET_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            sudo su - 
-            /root/refresh_swapy_latest.sh;
+            /home/angelvera/refresh_swapy_latest.sh
+            echo "done remote ssh" > latest_update.log
+            echo "date" >>latest_update.log
       
   dependency-submission:
 
