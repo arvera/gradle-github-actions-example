@@ -50,12 +50,13 @@ jobs:
     - uses: mr-smithers-excellent/docker-build-push@v6
       name: Build & push Docker image
       with:
-        image: repo/image
+        image: skipatroltest1/swapy
         tags: v1, latest
-        registry: registry-url.io
+        registry: us-central1-docker.pkg.dev
         dockerfile: Dockerfile
-        username: ${{ secrets.DOCKER_USERNAME }}
+        username: _json_key
         password: ${{ secrets.DOCKER_PASSWORD }}
+        
     - name: executing remote ssh commands using password
       ## https://github.com/marketplace/actions/ssh-remote-commands
       uses: appleboy/ssh-action@v1.0.3
