@@ -1,28 +1,57 @@
-[![CI](https://github.com/tkgregory/gradle-github-actions-example/actions/workflows/gradle.yml/badge.svg)](https://github.com/tkgregory/gradle-github-actions-example/actions/workflows/gradle.yml)
+# Build the project
+1. From the root of the project `gradlew build`
+1. RESULT: it will produce a jar inside of: ./cnswapweb/build/libs/
+1. To build the docker container 
+      1. FOR MAC PLATFORM: `docker build --build-arg JAR_FILE=build/libs/cnswapweb-0.0.1-SNAPSHOT.jar -t avera/cnswap .`
+      1. FOR x64: `docker build --platform linux/amd64 --build-arg JAR_FILE=build/libs/cnswapweb-0.0.1-SNAPSHOT.jar -t avera/cnswap:0.0.1_linux .`
+1. RESULT: it will produce a new container into the local docker registry: avera/swapy:latest
+1. To run the docker: `docker run -p 8080:8080 avera/swapy`
 
-View the accompanying tutorial [article](https://tomgregory.com/build-gradle-projects-with-github-actions) or [video](https://youtu.be/a7T2MU2l-es).
+If you get an invalid username or password, is likely that the DB has not been initialized. Modify the application.properties to be: spring.sql.init.mode=always
 
-## Overview
 
-This project explores the different ways to build Gradle projects using GitHub actions.
 
-1. No caching
-2. Using the *setup-java* Gradle caching mechanism
-3. Using the *gradle-build-action* Gradle caching mechanism
-4. Saving a build artifact, in this case the test report
 
-## Building
+# Things to remember
+@Controller classes serve as C from MVC. Note that the real controller in Spring MVC is DispatcherServlet that will use the specific @Controller class to handle the URL request.
 
-This is a small Java project which can be built with `./gradlew build`.
+@Service classes should serve for your service layer. Here you should put your business logic.
 
-The project has multiple dependencies that get downloaded from Maven Central. This means that some difference in build times should be noted with caching
-enabled vs. disabled.
+@Repository classes should serve for your data access layer. Here you should put CRUD logic: insert, update, delete, select.
 
-## Viewing the results
+@Service, @Repository and your entity classes will be M from MVC. JSP and other view technologies(e.g. JSP, Thymeleaf etc.) will conform V from MVC.
 
-The project includes a single [workflow](/.github/workflows/gradle.yml) which executes the above scenarios. 
+@Controller classes should only have access to @Service classes through interfaces. Similar, @Service classes should only have access to other @Service classes and for a specific set of @Repository classes through interfaces.
 
-See *[Actions](https://github.com/tkgregory/gradle-github-actions-example/actions)* for all the results.
+   * (Source) https://stackoverflow.com/questions/25355385/where-to-put-business-logic-in-spring-mvc-framework
+   
+   
+# Wireframes
+https://www.figma.com/file/BL4vBmvGUHMzRbmud9KcmJ/Figma-basics?type=design&node-id=1669-162202&mode=design&t=mFnSZBqeSXLrXO1m-0
+   
 
-## Need Gradle support?
-Contact me if you need help with Gradle at [tom@tomgregory.com](mailto:tom@tomgregory.com).
+# Source in continued use for reference:
+   * Bootstrap reference documents: Used to render components in HTML
+      * https://getbootstrap.com/docs/4.0/components/card/
+
+# Sources used:
+   * Should had started with this one, as it explains the whole Database USER, ROLE relation for the Database login part
+      * https://www.javaguides.net/2021/10/spring-boot-login-rest-api.html
+   * I kept going back to this guy as it has a over all explanation of the processs too.
+      * https://www.marcobehler.com/guides/spring-security#_authentication_with_spring_security
+   * This one explains the lambda anotation, I kept refering to it at times
+      * https://docs.spring.io/spring-security/reference/migration-7/configuration.html#_goals_of_the_lambda_dsl
+   * This one has a very good overall process too and it usesrs thymeleaf
+      * https://www.javaguides.net/2023/04/spring-security-custom-login-page.html
+   * Explains the difference when using an MVC controler vs a RestControler
+      * https://www.baeldung.com/spring-controllers
+      * https://www.javaguides.net/2021/10/spring-boot-login-rest-api.html
+      * https://docs.spring.io/spring-security/site/docs/4.1.3.RELEASE/guides/html5/form-javaconfig.html#configuring-a-login-view-controller
+   * a Complete end to end of what I did
+      * https://www.javaguides.net/2018/10/user-registration-module-using-springboot-springmvc-springsecurity-hibernate5-thymeleaf-mysql.html
+   * OH MY GOSH!! Why didn't I think of starting here, react and spring boots, but this one doesn't have the DB and authentication part
+     * https://spring.io/guides/tutorials/react-and-spring-data-rest/  
+   * A course in 28 minutes: I didn't try it but it seems to cover the basics
+      * https://www.springboottutorial.com/spring-boot-with-static-content-css-and-javascript-js
+    
+      

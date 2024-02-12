@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Transaction Report</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+</head>
+<body>
+
+		<!--  nav bar start -->
+	<div th:insert="~{fragments/navbar :: selectedPage(page='manage')}" id="this-will-be-retained">This content will be gone</div>
+	<!--  nav bar end -->
+
+	<br />
+	<br />
+
+	<div class="container">
+
+		<!--  container_messages start -->
+		<div th:insert="~{fragments/messageArea}" id="this-will-be-retained">This content will be gone</div>
+		<!--  container_messages end -->
+
+
+			<!--  .card -->
+			<div class="card">
+				<div class="card-header">
+					<h2 class="text-center">All Orders/Transactions</h2>
+				</div>
+				<div class="card-body">
+
+
+ 	<div class="my-3">
+      <form th:action="@{/manage/reports/transactionReport}" id="searchForm">
+        <div class="row d-flex">
+          <div class="col-md-6 mt-2">
+            <div class="search input-group">
+              <i class="fa fa-search"></i>
+              <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control" placeholder="Enter keyword">
+              <button type="submit" class="btn btn-secondary">Search</button>
+            </div>
+          </div>
+          <div class="col-md-3 input-group mt-2">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="pageSize">Items per page:</label>
+            </div>
+            <select form="searchForm" name="size" th:value="${pageSize}" onchange="changePageSize()" class="size-select"
+              id="pageSize">
+              <option th:each="s : ${ {25, 50, 100} }" th:value="${s}" th:text="${s}" th:selected="${s == pageSize}"></option>
+            </select>
+          </div>
+          <div class="col-md-1 mt-2">
+            <button id="btnClear" class="btn btn-info">Clear</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+
+
+					<div th:if="${orders?.size() > 0}">
+					  <table class="table table-hover table-responsive-xl">
+					    <thead class="thead-light">
+					      <tr>
+					        <th th:replace="~{fragments/sorting :: sorting('id','Id','/manage/reports/transactionReport')}"></th>
+					        <th th:replace="~{fragments/sorting :: sorting('total','Total','/manage/reports/transactionReport')}"></th>
+					        <th th:replace="~{fragments/sorting :: sorting('transUsername','Username','/manage/reports/transactionReport')}"></th>
+					        <th th:replace="~{fragments/sorting :: sorting('transTime','Transaction Time','/manage/reports/transactionReport')}"></th>
+					        <th># Items</th>
+					        <th># Payments</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr th:each="order : ${orders}">
+					        <th scope="row"><a th:href="@{/register/orderLookup(orderId=${order.id})}" th:text="${order.id}"></a></th>
+					        <td>[[${order.total}]]</td>
+					        <td>[[${order.transUsername.username}]]</td>
+					        <td>[[${order.transTime}]]</td>
+					        <td>[[${order.orderItems.size}]]</td>
+					        <td>[[${order.payments.size}]]</td>
+					      </tr>
+					    </tbody>
+					  </table>
+					</div>
+
+					<div th:unless="${orders?.size() &gt; 0}">
+						<span>No Orders where found! </span>
+					</div>
+
+
+
+					<nav aria-label="Pagination" th:if="${totalPages > 0}">
+					  <ul class="pagination justify-content-center">
+					    <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+					      <a th:replace="~{fragments/paging :: paging(1, '<<', 'First Page','/manage/reports/transactionReport')}"></a>
+					    </li>
+					    <li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
+					      <a th:replace="~{fragments/paging :: paging(${currentPage - 1}, 'Prev', 'Previous Page','/manage/reports/transactionReport')}"></a>
+					    </li>
+					    <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+					      <a class="page-link" href="#">...</a>
+					    </li>
+					    <li class="page-item" th:classappend="${page == currentPage} ? 'active'"
+					      th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
+					      <a th:replace="~{fragments/paging :: paging(${page}, ${page}, 'Page ' + ${page},'/manage/reports/transactionReport')}"></a>
+					    </li>
+					    <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+					      <a class="page-link" href="#">...</a>
+					    </li>
+					    <li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
+					      <a th:replace="~{fragments/paging :: paging(${currentPage + 1},'Next', 'Next Page','/manage/reports/transactionReport')}"></a>
+					    </li>
+					    <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+					      <a th:replace="~{fragments/paging :: paging(${totalPages}, '>>', 'Last Page','/manage/reports/transactionReport')}"></a>
+					    </li>
+					  </ul>
+					</nav>
+
+
+					
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+					 <script type="text/javascript">
+					 
+					    $(document).ready(function () {
+					      $("#btnClear").on("click", function (e) {
+					        e.preventDefault();
+					        $("#keyword").text("");
+					        console.log("#btnClear.click");
+					        window.location = "[[@{/manage/reports/transactionReport}]]";
+					      });
+					    });
+					
+					    function changePageSize() {
+					      $("#searchForm").submit();
+					    }
+					  </script>
+
+
+
+
+				</div>
+				<!-- .card-body -->
+			</div>
+			<!--  .card -->
+		</div>
+		<!-- .row -->
+
+	</div>
+	<!--  .container -->
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Refund Confirmation</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<!--  nav bar start -->
+	<div th:insert="~{fragments/navbar :: selectedPage(page='register')}" id="this-will-be-retained">This content will be gone</div>
+	<!--  nav bar end -->
+
+	<br />
+	<br />
+
+	<div class="container">
+
+		<!--  container_messages start -->
+		<div th:insert="~{fragments/messageArea}" id="this-will-be-retained">This content will be gone</div>
+		<!--  container_messages end -->
+
+		<div class="row gy-3"> <!--  card-spacing -->
+			<div class="card">
+				<div class="card-header ">
+					<h2 class="text-center">Refund Order Confirmation</h2>
+				</div>
+				<div class="card-body"> <!--  main card body  -->
+					<div class="row gy-2">
+
+					</div>
+					<!--  .gy-5 -->
+				</div>
+				<!-- .card-body -->
+			</div>
+			<!-- .card -->
+
+			<div class="card">
+
+				<div th:if="${order != null}" class="card-header text-white bg-secondary">
+					
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<h2 class="text-center bg-warning">Refund Authorization: [[${order.transUsername.username}]]</h2>
+							</div>
+							<div class="col">
+								<h2 class="text-center">Confirm Refund Order #[[${order.Id}]]</h2>
+							</div>
+							<div class="col text-end">[[${#dates.format(order.transTime, 'dd/MMM/yyyy - HH:mm')}]]</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="card-body">
+
+					<div th:if="${order?.orderItems?.size() &gt; 0}">
+						<table class="table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Order ID</th>
+									<th scope="col">Barcode</th>
+									<th scope="col">Name</th>
+									<th scope="col">Type</th>
+									<th scope="col">Price</th>
+									<th scope="col">Discount</th>
+								</tr>
+							</thead>
+							
+								<!--  container_messages start -->
+								<div th:insert="~{fragments/OrderTotal_Table.html}" id="this-will-be-retained">This content will be gone</div>
+								<!--  container_messages end -->
+							
+							
+						</table>
+						
+						      <form method="POST" enctype="multipart/form-data" th:action="@{/register/refundconfirmation}">
+					      	    <input type="hidden" name="orderId" id="orderId" th:value="${order.id}"/>
+					      	    <input type="hidden" name="originalOrderId" id="originalOrderId" th:value="${originalOrderId}"/>
+					      	    
+					      	    <div class="form-group col-md-3">
+									<label for="inputPhone">AuthToken for payment return:</label>
+									<input type="text" class="form-control" name="authToken" id="authToken" >
+								</div>
+								
+								<div class="form-group">
+									<label for="inputComments">Comments</label>
+									<input type="text" class="form-control" name="comment" id="comment">
+								</div>
+					      	    
+								<button type="submit" class="btn btn-primary">Confirm</button>
+							  </form>
+					</div>
+					<div th:if="${message == null}">
+						<div th:unless="${order?.orderItems?.size()  &gt; 0}" >
+							<span>No items found!</span>
+						</div>
+					</div>
+				</div>
+				<!-- .card-body -->
+			</div>
+			<!-- .card -->
+
+
+		</div>
+
+
+	</div>
+	<!--  .container -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

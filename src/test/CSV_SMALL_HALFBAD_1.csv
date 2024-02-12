@@ -1,0 +1,16 @@
+Barcode,Type,Description,Size,Price,New
+V323001,,jr boots,15.5,79,Y
+V323002,DH Boots,jr boots,15.5,79,Y
+,DH Boots,jr boots,16.5,79,Y
+V323004,DH Boots,,18.5,39,Y
+V323005,DH Boots,jr boots,18.5,89,Y,,
+V323006,DH Boots,jr boots,18.5,,Y
+V323007,DH Boots,jr boots,18.5,89,Y
+Someinvalid product
+V323008,DH Boots,jr boots,18.5,89,Y
+
+V323009,DH Boots,jr boots,18.5,89,Y,,
+V323010;DH Boots;jr boots;18.5;89;Y
+V323011,DH Boots,jr boots,18.5,79,Y
+V323012.DH Boots.jr boots.18.8.79.Y
+V323013,DH Boots,jr boots,19,89,Y
