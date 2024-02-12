@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.0.final using JasperReports Library version 6.21.0-4f56c4f36cd19e17675219a9ac4692d5f0f13b06  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="554e89ae-17c1-46dd-b4ec-efac880a2df9">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="vendorId" class="java.lang.String"/>
+	<field name="catentry" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="17" width="555" height="50" backcolor="#E02B28" uuid="4c8fbe9a-44be-4877-94e4-5c00d683598f"/>
+				<graphicElement>
+					<pen lineStyle="Solid" lineColor="#E02B28"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="10" y="27" width="534" height="30" forecolor="#FCF7F7" uuid="7fbf0ec1-f8fa-4bb6-b4fb-492dd41e0ce1"/>
+				<textElement>
+					<font size="22"/>
+				</textElement>
+				<text><![CDATA[Public Vendor Report]]></text>
+			</staticText>
+		
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="79" y="52" width="100" height="30" forecolor="#FFFFFF" uuid="bfa1f331-45fc-4a47-8205-a03ff44c56b8"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="12" y="52" width="100" height="30" uuid="580ffaa0-ba5b-4fa7-8c14-5237229105a2"/>
+				<text><![CDATA[Last updated]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="0" width="100" height="30" uuid="c82f8c9f-c253-4406-9010-35578b471462"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VendorId]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="30" uuid="f05d023a-b47a-432a-809b-e7a98bbfba93"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="0" width="100" height="30" uuid="a85fd265-6f43-4495-a1c6-16bbe0f07f67"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[catentry]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="100" height="30" uuid="440f0bea-da5b-4b09-ac52-403f49b23afb"/>
+				<textFieldExpression><![CDATA[$F{vendorId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="0" width="100" height="30" uuid="9db39a88-5c6e-41cc-981b-ba71d24f18f4"/>
+				<textFieldExpression><![CDATA[$F{catentry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="30" uuid="5887335f-41b1-4256-9f9b-ea3f9179904b"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
